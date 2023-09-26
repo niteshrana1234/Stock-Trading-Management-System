@@ -30,6 +30,17 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
+    @PostMapping("/verifyOtp/{otp}")
+    public ResponseEntity<Map<String,String>> verifyOtp(@PathVariable String otp){
+
+       String verifyOtp = userService.verifyOtp(otp);
+       Map<String,String> response = new HashMap<>();
+       response.put("message",verifyOtp);
+
+       return new ResponseEntity<>(response,HttpStatus.OK);
+
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Map<String, String>> deleteUser(@PathVariable("id") int id) {
 
