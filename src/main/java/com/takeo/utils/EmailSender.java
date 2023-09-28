@@ -14,7 +14,7 @@ public class EmailSender {
         // Email configuration
         String host = "smtp.gmail.com";
         String username = "niteshrana1234@gmail.com";
-        String password = "arzu toxx izsb pjkp";
+        String password = "yolg vfbd lpwk iovv";
         int port = 587;
 
         // Sender and recipient email addresses
@@ -89,7 +89,7 @@ public class EmailSender {
         // Email configuration
         String host = "smtp.gmail.com";
         String username = "niteshrana1234@gmail.com";
-        String password = "arzu toxx izsb pjkp";
+        String password = "yolg vfbd lpwk iovv";
         int port = 587;
         // Sender and recipient email addresses
         String senderEmail = "niteshrana1234@gmail.com";

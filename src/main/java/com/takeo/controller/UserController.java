@@ -1,6 +1,7 @@
 package com.takeo.controller;
 
 import com.takeo.model.User;
+import com.takeo.payloads.RegisterUserDTO;
 import com.takeo.payloads.UpdateUserDTO;
 import com.takeo.payloads.UserLoginDTO;
 import com.takeo.service.impl.UserServiceImpl;
@@ -22,7 +23,7 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<Map<String,String>> registerUser(@RequestBody User user) {
+    public ResponseEntity<Map<String,String>> registerUser(@RequestBody RegisterUserDTO user) {
 
         String register = userService.registerAccount(user);
         Map<String,String> response = new HashMap<>();

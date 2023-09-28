@@ -3,8 +3,11 @@ package com.takeo.service.impl;
 
 import com.takeo.execption.UserNotFoundException;
 import com.takeo.model.Portfolio;
+import com.takeo.model.TradingAccount;
 import com.takeo.model.User;
+import com.takeo.payloads.RegisterUserDTO;
 import com.takeo.payloads.UpdateUserDTO;
+import com.takeo.repo.TradAccRepo;
 import com.takeo.repo.UserRepo;
 import com.takeo.service.UserService;
 import com.takeo.utils.EmailSender;
@@ -22,24 +25,33 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepo userRepo;
+    @Autowired
+    private TradAccRepo accRepo;
 
     @Override
-    public String registerAccount(User user) {
+    public String registerAccount(RegisterUserDTO userDTO) {
         String message = "User already exist";
 
-        Optional<User> usr = userRepo.findByEmail(user.getEmail());
+        Optional<User> usr = userRepo.findByEmail(userDTO.getEmail());
         if (usr.isEmpty()) {
-            String otp = EmailSender.sendOtp(user.getEmail());
+            String otp = EmailSender.sendOtp(userDTO.getEmail());
             message = "Faild to send otp";
             if (otp != null) {
+                User user = new User();
+                BeanUtils.copyProperties(userDTO,user);
                 user.setOtp(otp);
                 User savedUser = userRepo.save(user);
+                TradingAccount account = new TradingAccount();
+                BeanUtils.copyProperties(userDTO,account);
+                account.setUser(savedUser);
+                accRepo.save(account);
+
                 if (savedUser != null) {
                     return "Otp send to Respected email successfully";
                 }
             }
         } else {
-            throw new UserNotFoundException("User already exist with " + user.getEmail());
+            throw new UserNotFoundException("User already exist with " + userDTO.getEmail());
         }
         return message;
 

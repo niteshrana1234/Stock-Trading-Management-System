@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "user_details")
@@ -53,4 +55,10 @@ public class User {
     private Date updatedDate = new Date();
     @JsonIgnore
     private String otp;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Portfolio> portfolios = new ArrayList<>();
+
+
 }

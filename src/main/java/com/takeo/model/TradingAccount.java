@@ -6,6 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Data
@@ -19,8 +22,15 @@ public class TradingAccount {
     private int accId;
     private String accountType;
     @JsonIgnore
-    private int balance;
+    private double balance;
+
     @JsonIgnore
-    private int userId;
-    
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="acc_id",referencedColumnName = "acc_id")
+    private List<Stock> list = new ArrayList<>();
 }

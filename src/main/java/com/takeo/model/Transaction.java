@@ -19,13 +19,16 @@ public class Transaction {
     private int transactionId;
     @JsonIgnore
     private int portfolioId;
-    @JsonIgnore
-    private int accId;
-    private String transactionType; //buy or sell
+    private int stockId;
+    private String transactionType; //buy or sell//
     private int amount;
     private int quantity;
     @JsonIgnore
     @Temporal(TemporalType.DATE)
     private LocalDate date;
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "Acc_id")
+    private TradingAccount account;
 }
