@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import java.util.Date;
 
 @Entity
 @Data
@@ -17,18 +16,15 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private int transactionId;
+    private String transactionType; //fund, withdraw, buy, sell
     @JsonIgnore
-    private int portfolioId;
-    private int stockId;
-    private String transactionType; //buy or sell//
-    private int amount;
+    private String stockName;
+    @Column(name="total_amount")
+    private double amount;
+    @JsonIgnore
     private int quantity;
     @JsonIgnore
     @Temporal(TemporalType.DATE)
-    private LocalDate date;
+    private Date date = new Date();
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "Acc_id")
-    private TradingAccount account;
 }

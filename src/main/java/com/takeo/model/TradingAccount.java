@@ -32,5 +32,10 @@ public class TradingAccount {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name="acc_id",referencedColumnName = "acc_id")
-    private List<Stock> list = new ArrayList<>();
+    private List<Stock> stockList = new ArrayList<>();
+
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "acc_id",referencedColumnName = "acc_id")
+    private List<Transaction> transactionList = new ArrayList<>();
 }

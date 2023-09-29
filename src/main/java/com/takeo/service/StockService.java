@@ -9,5 +9,5 @@ import java.util.List;
 public interface StockService {
     public String buyStock(int userId, List<StockDTO> list);
     public String sellStock(SellStockDTO stockDTO);
-    public String viewALlStock(int userId);
+    public List<Stock> viewALlStock(int userId);
 }

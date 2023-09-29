@@ -39,5 +39,13 @@ public class StockController {
 
         return new ResponseEntity<>(response,HttpStatus.OK);
     }
+    @GetMapping("/view-stock/{id}")
+    public ResponseEntity<List<Stock>> getAllStocks(@PathVariable("id") int userId){
+
+        List<Stock> stockList = stockService.viewALlStock(userId);
+
+        return new ResponseEntity<>(stockList,HttpStatus.OK);
+
+    }
 
 }
