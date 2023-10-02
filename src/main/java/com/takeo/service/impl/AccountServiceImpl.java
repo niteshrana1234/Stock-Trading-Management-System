@@ -3,6 +3,7 @@ package com.takeo.service.impl;
 import com.takeo.model.TradingAccount;
 import com.takeo.model.Transaction;
 import com.takeo.model.User;
+import com.takeo.utils.TransactionCalc;
 import com.takeo.repo.TradAccRepo;
 import com.takeo.repo.TransactionRepo;
 import com.takeo.repo.UserRepo;
@@ -35,11 +36,7 @@ public class AccountServiceImpl implements TradingAccountService {
                balance = balance+amount;
                account.setBalance(balance);
 
-               List<Transaction> list = account.getTransactionList();
-               Transaction transaction = new Transaction();
-               transaction.setAmount(amount);
-               transaction.setTransactionType("Deposit");
-               list.add(transaction);
+               List<Transaction> list = TransactionCalc.deposit(account.getTransactionList(),amount);
 
                account.setTransactionList(list);
 
@@ -65,11 +62,7 @@ public class AccountServiceImpl implements TradingAccountService {
                 balance = balance-amount;
                 account.setBalance(balance);
 
-                List<Transaction> list = account.getTransactionList();
-                Transaction transaction = new Transaction();
-                transaction.setAmount(amount);
-                transaction.setTransactionType("Withdraw");
-                list.add(transaction);
+                List<Transaction> list = TransactionCalc.withdraw(account.getTransactionList(),amount);
 
                 account.setTransactionList(list);
 

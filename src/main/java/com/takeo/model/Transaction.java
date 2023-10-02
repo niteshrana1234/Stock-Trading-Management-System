@@ -17,11 +17,9 @@ public class Transaction {
     @JsonIgnore
     private int transactionId;
     private String transactionType; //fund, withdraw, buy, sell
-    @JsonIgnore
     private String stockName;
     @Column(name="total_amount")
     private double amount;
-    @JsonIgnore
     private int quantity;
     @JsonIgnore
     @Temporal(TemporalType.DATE)

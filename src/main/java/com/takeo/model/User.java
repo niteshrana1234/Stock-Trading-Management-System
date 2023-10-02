@@ -57,8 +57,8 @@ public class User {
     private String otp;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="user_id", referencedColumnName = "user_id")
     private List<Portfolio> portfolios = new ArrayList<>();
-
 
 }

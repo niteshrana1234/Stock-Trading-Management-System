@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Entity
 @AllArgsConstructor
@@ -19,8 +21,9 @@ public class Portfolio {
     private String pName;
     private String description;
 
+    @Temporal(TemporalType.DATE)
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    private Date createDate = new Date();
+
+
 }

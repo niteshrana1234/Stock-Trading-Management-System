@@ -1,4 +1,4 @@
-package com.takeo.payloads;
+package com.takeo.utils;
 
 public class StockCalculator {
 

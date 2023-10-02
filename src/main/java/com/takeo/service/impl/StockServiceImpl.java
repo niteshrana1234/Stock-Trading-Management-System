@@ -5,7 +5,7 @@ import com.takeo.model.TradingAccount;
 import com.takeo.model.Transaction;
 import com.takeo.model.User;
 import com.takeo.payloads.SellStockDTO;
-import com.takeo.payloads.StockCalculator;
+import com.takeo.utils.StockCalculator;
 import com.takeo.payloads.StockDTO;
 import com.takeo.repo.StockRepo;
 import com.takeo.repo.TradAccRepo;
