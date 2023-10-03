@@ -18,10 +18,8 @@ public class TradingAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "acc_id")
-    @JsonIgnore
     private int accId;
     private String accountType;
-    @JsonIgnore
     private double balance;
 
     @JsonIgnore

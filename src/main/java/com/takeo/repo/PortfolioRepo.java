@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface PortfolioRepo extends JpaRepository<Portfolio,Integer> {
 
+    
+
 }

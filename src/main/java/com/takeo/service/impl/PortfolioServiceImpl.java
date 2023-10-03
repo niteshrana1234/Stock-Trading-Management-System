@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.sound.sampled.Port;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class PortfolioServiceImpl implements PortfolioService {
             List<Portfolio> portfolioList = new ArrayList<>();
             portfolioList.add(portfolio);
             user.setPortfolios(portfolioList);
+            userRepo.save(user);
             return "Portfolio Created";
         }
 
@@ -44,7 +46,23 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public String updatePortfolio(int userId) {
+    public String updatePortfolio(int pid,int userId,PortfolioDTO portfolioDTO) {
+
+        Optional<User> usr =  userRepo.findById(userId);
+        if(usr.isPresent()){
+            User user = usr.get();
+            Optional<Portfolio> port = portfolioRepo.findById(pid);
+            if(port.isPresent()){
+                Portfolio portfolio = port.get();
+                BeanUtils.copyProperties(portfolioDTO,portfolio);
+                List<Portfolio> portfolioList = new ArrayList<>();
+                portfolioList.add(portfolio);
+                user.setPortfolios(portfolioList);
+                return "Portfolio Updated";
+            }
+
+        }
+
         return null;
     }
 
@@ -70,6 +88,16 @@ public class PortfolioServiceImpl implements PortfolioService {
           TradingAccount account = acc.get();
           return account.getTransactionList();
 
+        }
+        return null;
+    }
+
+    @Override
+    public TradingAccount viewAccount(int userId) {
+        Optional<User> usr = userRepo.findById(userId);
+        Optional<TradingAccount> account = tradAccRepo.findByUserId(userId);
+        if (usr.isPresent() && account.isPresent()) {
+        return account.get();
         }
         return null;
     }
