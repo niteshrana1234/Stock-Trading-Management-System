@@ -13,7 +13,7 @@ public interface UserService {
     public User getUser(int id);
     public String deleteAccount(int id);
     public List<Portfolio> listOfPortfolio(int userId);
-    public String changePassword(int id);
+    public String changePassword(String email,String password,String newPassword);
     public String userLogIn(String email, String password);
 
 }

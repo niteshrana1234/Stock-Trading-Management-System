@@ -1,5 +1,6 @@
 package com.takeo.controller;
 
+import com.takeo.model.Portfolio;
 import com.takeo.model.User;
 import com.takeo.payloads.RegisterUserDTO;
 import com.takeo.payloads.UpdateUserDTO;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -40,6 +42,13 @@ public class UserController {
 
        return new ResponseEntity<>(response,HttpStatus.OK);
 
+    }
+    @PostMapping("reset-password/{email}/{password}/{newPass}")
+    public ResponseEntity<Map<String,String>> resetPassword(@PathVariable String email,@PathVariable String password,@PathVariable String newPass){
+       String resetPass = userService.changePassword(email,password,newPass);
+       Map<String,String> response = new HashMap<>();
+       response.put("message",resetPass);
+       return new ResponseEntity<>(response,HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -71,6 +80,13 @@ public class UserController {
 
       return new ResponseEntity<>(response,HttpStatus.OK);
 
+    }
+    @GetMapping("/portfolios/{id}")
+    public ResponseEntity<List<Portfolio>> userPortfolios(@PathVariable int id){
+
+       List<Portfolio> portfolioList = userService.listOfPortfolio(id);
+       return new ResponseEntity<>(portfolioList,HttpStatus.OK);
+    
     }
 
 }

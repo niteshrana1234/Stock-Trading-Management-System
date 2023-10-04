@@ -114,12 +114,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Portfolio> listOfPortfolio(int userId) {
+
+        Optional<User> optionalUser = userRepo.findById(userId);
+        if(optionalUser.isPresent()){
+            User user = optionalUser.get();
+            return user.getPortfolios();
+        }
         return null;
     }
 
     @Override
-    public String changePassword(int id) {
-        return null;
+    public String changePassword(String email,String password,String newPassword) {
+        String message = "User not found";
+        Optional<User> optionalUser = userRepo.findByEmail(email);
+        if(optionalUser.isPresent()){
+            message = "Invalid username or password";
+            User user = optionalUser.get();
+            String userEmail = user.getEmail();
+            String userPass = user.getPassword();
+            if(email.equals(userEmail) && password.equals(userPass)){
+                message = "Password successfully changed";
+                user.setPassword(newPassword);
+                EmailSender.sendNewPassword(email,newPassword);
+                userRepo.save(user);
+                return message;
+            }
+        }
+        return message;
     }
 
     @Override
