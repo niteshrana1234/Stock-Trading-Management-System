@@ -86,7 +86,7 @@ public class UserController {
 
        List<Portfolio> portfolioList = userService.listOfPortfolio(id);
        return new ResponseEntity<>(portfolioList,HttpStatus.OK);
-    
+
     }
 
 }
